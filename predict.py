@@ -24,10 +24,12 @@ from utils.multadds_count import count_parameters_in_MB, comp_multadds
 from time import time
 from struct import unpack
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 import re
 import numpy as np
 import pdb
 from path import Path
+import cv2
 
 opt = obtain_predict_args()
 print(opt)
@@ -81,7 +83,8 @@ def RGBToPyCmap(rgbdata):
     return mpl_data
 
 mpl_data = RGBToPyCmap(turbo_colormap_data)
-plt.register_cmap(name='turbo', data=mpl_data, lut=turbo_colormap_data.shape[0])
+cmp = LinearSegmentedColormap('disparity', mpl_data)
+plt.register_cmap('disparity', cmp)
 
 def readPFM(file): 
     with open(file, "rb") as f:
